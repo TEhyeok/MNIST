@@ -1,4 +1,4 @@
-# 사용자 데이터 수집을 위한 GUI 애플리케이션
+# 데이터 수집용 GUI
 import tkinter as tk
 from tkinter import Canvas, Button, Label, Frame, Scale, messagebox
 import numpy as np
@@ -49,21 +49,21 @@ class DataCollectionApp:
         self.update_progress()
         
     def load_existing_data(self):
-        """기존에 수집된 데이터가 있으면 로드"""
+        """전에 모은 데이터 있으면 불러오기"""
         try:
             if os.path.exists(self.images_file) and os.path.exists(self.labels_file):
                 images = np.load(self.images_file)
                 labels = np.load(self.labels_file)
                 self.collected_images = images.tolist()
                 self.collected_labels = labels.tolist()
-                print(f"기존 데이터 {len(self.collected_images)}개를 로드했습니다.")
+                print(f"전에 모은 데이터 {len(self.collected_images)}개 불러옴")
         except Exception as e:
-            print(f"기존 데이터 로드 중 오류: {e}")
+            print(f"데이터 불러오기 실패: {e}")
             self.collected_images = []
             self.collected_labels = []
             
     def setup_gui(self):
-        """GUI 컴포넌트 설정"""
+        """화면 만들기"""
         # 제목 라벨
         title_label = Label(self.window, text="사용자 데이터 수집기", 
                           font=("Arial", 20, "bold"), bg='#f0f0f0', fg='black')
@@ -310,7 +310,7 @@ class DataCollectionApp:
             self.window.quit()
 
 def main():
-    """메인 실행 함수"""
+    """실행"""
     root = tk.Tk()
     app = DataCollectionApp(root)
     root.mainloop()
